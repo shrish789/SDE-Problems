@@ -9,7 +9,6 @@ Note:
 -There is only one duplicate number in the array, but it could be repeated more than once.
 */
 
-
 //Floyd's Tortoise and hare algorithm
 
 class Solution {
