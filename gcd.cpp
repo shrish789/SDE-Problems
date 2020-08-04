@@ -43,7 +43,7 @@ ll gcd(ll a, ll b){
 void solve(){
 	ll a,b;
 	cin>>a>>b;
-	cout<<gcd(min(a,b), max(a,b));
+	cout<<gcd(a,b);
 }
 
 int main(){
