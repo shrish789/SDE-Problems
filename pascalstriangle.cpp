@@ -21,23 +21,15 @@ Output:
 class Solution {
 public:
     vector<vector<int>> generate(int numRows) {
-        vector<vector<int>> v;
-        vector<int> v1;
-        if(numRows==0) return v;
-        v1.push_back(1);
-        v.push_back(v1);
-        if(numRows==1) return v;
-        v1.push_back(1);
-        v.push_back(v1);
-        for(int i=0; i<numRows-2; i++){
-            v1.clear();
-            v1.push_back(1);
-            for(int j=0; j<v.back().size()-1; j++){
-                v1.push_back(v.back()[j]+v.back()[j+1]);
+        vector<vector<int>> pascalsTriangle(numRows);
+        
+        for (int i = 0; i < numRows; i++) {
+            pascalsTriangle[i].resize(i + 1);
+            pascalsTriangle[i][0] = pascalsTriangle[i][i] = 1;
+            for (int j = 1; j < i; j++) {
+                pascalsTriangle[i][j] = pascalsTriangle[i - 1][j - 1] + pascalsTriangle[i - 1][j];
             }
-            v1.push_back(1);
-            v.push_back(v1);
         }
-        return v;
+        return pascalsTriangle;
     }
 };
