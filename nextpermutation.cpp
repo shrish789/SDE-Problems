@@ -17,25 +17,22 @@ Here are some examples. Inputs are in the left-hand column and its corresponding
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
-        int n=nums.size();
-        int pos=n;
-        for(int i=n-1; i>=1; i--){
-            if(nums[i]>nums[i-1]){
-                pos=i-1;
+        int n = nums.size(), inflectionIndex, j;
+    	for (inflectionIndex = n - 2; inflectionIndex >= 0; inflectionIndex--) {
+            if (nums[inflectionIndex] < nums[inflectionIndex + 1]) {
                 break;
             }
         }
-        if(pos==n){
-            sort(nums.begin(), nums.end());
-            return;
-        }
-        int justgreater=pos+1;
-        for(int i=pos+1; i<n; i++){
-            if(nums[i]>nums[pos] && nums[i]<=nums[justgreater]) justgreater=i;
-        }
-        swap(nums[justgreater],nums[pos]);
-        for(int i=pos+1; i<=(n-pos)/2+pos; i++){
-            swap(nums[i], nums[n-i+pos]);
+    	if (inflectionIndex < 0) {
+    	    reverse(nums.begin(), nums.end());
+    	} else {
+    	    for (j = n - 1; j > inflectionIndex; j--) {
+                if (nums[j] > nums[inflectionIndex]) {
+                    break;
+                }
+            } 
+    	    swap(nums[inflectionIndex], nums[j]);
+    	    reverse(nums.begin() + inflectionIndex + 1, nums.end());
         }
     }
 };
