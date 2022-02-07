@@ -16,15 +16,16 @@ If you have figured out the O(n) solution, try coding another solution using the
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
-        int curr=0;
-        int mx=INT_MIN;
-        for(int i=0; i<nums.size(); i++)
-        {
-            curr+=nums[i];
-            if(curr>mx) mx=curr;
-            if(curr<0)
-                curr=0;
+        int maxSum = INT_MIN, currentSum = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            currentSum += nums[i];
+            if (currentSum > maxSum) {
+                maxSum = currentSum;
+            }
+            if (currentSum < 0) {
+                currentSum = 0;
+            }
         }
-        return mx;
+        return maxSum;
     }
 };
