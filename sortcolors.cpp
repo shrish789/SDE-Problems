@@ -24,23 +24,19 @@ Follow up:
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
-        int i=0,zero=0,two=nums.size()-1;
-        while(true){
-            if(i>=nums.size() || zero>=two) break;
-            if(nums[zero]==0){zero++;continue;}
-            if(nums[two]==2){two--;continue;}
-            
-            if(nums[i]==0 && i>=zero){
-                swap(nums[zero],nums[i]);
-                zero++;
-                continue;
+        int zeroIndex = 0, twoIndex = nums.size() - 1, currentIndex = 0;
+        
+        while(currentIndex <= twoIndex) {
+            if (nums[currentIndex] == 0) {
+                swap(nums[zeroIndex], nums[currentIndex]);
+                currentIndex++;
+                zeroIndex++;
+            } else if (nums[currentIndex] == 1) {
+                currentIndex++;
+            } else {
+                swap(nums[twoIndex], nums[currentIndex]);
+                twoIndex--;
             }
-            if(nums[i]==2 && i<=two){
-                swap(nums[i],nums[two]);
-                two--;
-                continue;
-            }
-            i++;
         }
     }
 };
