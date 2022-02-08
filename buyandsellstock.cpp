@@ -23,14 +23,13 @@ Explanation: In this case, no transaction is done, i.e. max profit = 0.
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        int minprice = INT_MAX;
-        int maxprofit = 0;
-        for (int i = 0; i < prices.size(); i++) {
-            if (prices[i] < minprice)
-                minprice = prices[i];
-            else if (prices[i] - minprice > maxprofit)
-                maxprofit = prices[i] - minprice;
+        int profit = 0, minPrice = prices[0];
+        
+        for (int i = 1; i < prices.size(); i++) {
+            profit = max(profit, prices[i] - minPrice);
+            minPrice = min(minPrice, prices[i]);
         }
-        return maxprofit;
+        
+        return profit;
     }
 };
