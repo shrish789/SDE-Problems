@@ -17,22 +17,19 @@ Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 
 class Solution {
 public:
-    int max(int a, int b){
-        if(a>b) return a;
-        return b;
-    }
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        vector<vector<int>> v;
-        if(intervals.empty()) return v;
         sort(intervals.begin(), intervals.end());
-        v.push_back(intervals[0]);
-        vector<int> v1;
-        
-        for(int i=1; i<intervals.size(); i++){
-            v1=intervals[i];
-            if(v1[0]<=v.back()[1]) v.back()[1]=max(v1[1],v.back()[1]);
-            else v.push_back(v1);
+        vector<vector<int>> mergedIntervals;
+        mergedIntervals.push_back({intervals[0][0], intervals[0][1]});
+        int lastNumber;
+        for (int i = 1; i < intervals.size(); i++) {
+            lastNumber = mergedIntervals.back()[1];
+            if (intervals[i][0] <= lastNumber) {
+                mergedIntervals.back()[1] = max(lastNumber, intervals[i][1]);
+            } else {
+                mergedIntervals.push_back({intervals[i][0], intervals[i][1]});
+            }
         }
-        return v;
+        return mergedIntervals;
     }
 };
