@@ -14,19 +14,15 @@ Note:
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-        int tortoise,hare;
-        tortoise=nums[0];
-        hare=nums[0];
-        while(true){
-            tortoise=nums[tortoise];
-            hare=nums[nums[hare]];
-            if(tortoise==hare) break;
+        int answer;
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[abs(nums[i]) - 1] < 0) {
+                answer = abs(nums[i]);
+                break;
+            } else {
+                nums[abs(nums[i]) - 1] = -nums[abs(nums[i]) - 1];
+            }
         }
-        tortoise=nums[0];
-        while(tortoise!=hare){
-            tortoise=nums[tortoise];
-            hare=nums[hare];
-        }
-        return tortoise;
+        return answer;
     }
 };
