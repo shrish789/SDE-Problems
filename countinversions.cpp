@@ -3,9 +3,9 @@ using namespace std;
 int merge(int arr[], int temp[], int left, int mid, int right) {
    int i, j, k;
    int count = 0;
-   i = left; //i to locate first array location
-   j = mid; //i to locate second array location
-   k = left; //i to locate merged array location
+   i = left; // to locate first array location
+   j = mid; // to locate second array location
+   k = left; // to locate merged array location
    while ((i <= mid - 1) && (j <= right)) {
       if (arr[i] <= arr[j]){ //when left item is less than right item
       temp[k++] = arr[i++];
