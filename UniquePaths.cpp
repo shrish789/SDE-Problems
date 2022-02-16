@@ -8,6 +8,9 @@ How many possible unique paths are there?
 
 */
 
+// FIRST SOLUTION: Brute Force offcourse (exponential recursion)
+
+// SECOND SOLUTION: DP [Time complexity: O(n*m), Space complexity: O(m*n)]
 class Solution {
 public:
     int uniquePaths(int m, int n) {
@@ -22,5 +25,20 @@ public:
             }
         }
         return (int)C[N][R];
+    }
+};
+
+// THIRD SOLUTION: Single loop [Time complexity: O(n-1) or O(m-1), Space Complexity: O(1)]
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        int numeratorNumber = m + n - 2;
+        int denominatorNumber = min(m - 1, n - 1);
+        double ans = 1;
+        for (int i = 1; i <= denominatorNumber; i++) {
+            ans *= (double)(numeratorNumber - i + 1);
+            ans /= i;
+        }
+        return (int)ans;
     }
 };
