@@ -15,6 +15,9 @@ Could you do it in O(n) time and O(1) space?
 
 */
 
+// FIRST APPROACH: Brute force, offcourse
+
+// SECOND APPROACH: Find length
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
@@ -52,3 +55,6 @@ public:
         return prev;
     }
 };
+
+
+// THIRD APPROACH: Fast-slow pointer and rest approach same as above
