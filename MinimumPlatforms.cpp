@@ -32,34 +32,23 @@ Output:
 
 */
 
-#include <bits/stdc++.h>
-using namespace std;
-
-void solve(){
-    int n,x;
-    cin>>n;
-    vector<pair<int,int>> v;
-    for(int i=0; i<2*n; i++){
-        cin>>x;
-        if(i<n) v.push_back({x,0});
-        else v.push_back({x,1});
+int countPlatforms(int n,int arr[],int dep[])
+ {
+    sort(arr,arr+n);
+    sort(dep,dep+n);
+ 
+    int ans=1;
+    int count=1;
+    int i=1,j=0;
+    while(i<n && j<n) {
+        if(arr[i]<=dep[j]) { //one more platform needed
+            count++;
+            i++;
+        } else { //one platform can be reduced
+            count--;
+            j++;
+        }
+        ans=max(ans,count); //updating the value with the current maximum
     }
-    sort(v.begin(), v.end());
-    int cnt=0,mx=0;
-    for(int i=0; i<2*n; i++){
-        if(v[i].second==0) cnt++;
-        else cnt--;
-        mx=max(cnt, mx);
-    }
-    cout<<mx<<"\n";
-}
-
-int main() {
-	//code
-	int t;
-	cin>>t;
-	while(t--){
-	    solve();
-	}
-	return 0;
-}
+    return ans;
+ }
