@@ -7,10 +7,10 @@ Flatten the list so that all the nodes appear in a single-level, doubly linked l
 Example:
 
 1---2---3---4---5---6--NULL
-    |
-    7---8---9---10--NULL
         |
-        11--12--NULL
+        7---8---9---10--NULL
+            |
+            11--12--NULL
 
 The serialization of each level is as follows:
 
