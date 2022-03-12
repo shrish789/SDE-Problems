@@ -1,5 +1,7 @@
 /*
 
+https://leetcode.com/problems/sliding-window-maximum/
+
 Given an array nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.
 
 Follow up:
@@ -29,6 +31,9 @@ Constraints:
 
 */
 
+// FIRST APPROACH: Brute force, offcourse
+
+// SECOND APPROACH: Using deque
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
@@ -46,5 +51,28 @@ public:
             ans.push_back(dq.back().first);
         }
         return ans;
+    }
+};
+
+// SAME APPROACH BUT BETTER
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        deque<int> dq;
+        int n = nums.size();
+        vector<int> maxArray;
+        for (int i = 0; i < n; i++) {
+            while (!dq.empty() && nums[i] > nums[dq.back()]) {
+                dq.pop_back();
+            }
+            dq.push_back(i);
+            if (dq.front() + k - 1 < dq.back()) {
+                dq.pop_front();
+            }
+            if (i >= k - 1) {
+                maxArray.push_back(nums[dq.front()]);;
+            }
+        }
+        return maxArray;
     }
 };
