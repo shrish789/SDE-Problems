@@ -54,3 +54,48 @@ public:
         return res;
     }
 };
+
+
+// SECOND APPROACH: Same as above but better and easy
+
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        queue<TreeNode*> q;
+        int zigZagOrder = 0;
+        vector<vector<int>> res;
+        vector<int> temp;
+        if (!root) {
+            return res;
+        }
+        TreeNode* curr;
+        
+        q.push(root);
+        int currentSize = 1, i = 0;
+        
+        while (!q.empty()) {
+            i = currentSize;
+            currentSize = 0;
+            while (i--) {
+                curr = q.front();
+                temp.push_back(curr -> val);
+                if (curr -> left) {
+                    q.push(curr -> left);
+                    currentSize++;
+                }
+                if (curr -> right) {
+                    q.push(curr -> right);
+                    currentSize++;
+                }
+                q.pop();
+            }
+            if (zigZagOrder) {
+                reverse(temp.begin(), temp.end());
+            }
+            res.push_back(temp);
+            temp.clear();
+            zigZagOrder = !zigZagOrder;
+        }
+        return res;
+    }
+};
