@@ -76,3 +76,21 @@ public:
         return ans;
     }
 };
+
+
+// Same as Third Approach but less code
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        unordered_map <char, int> um;
+        int initialPos = 0, ans = 0;
+        for (int i = 0; i < s.size(); i++) {
+            if (um[s[i]] > 0) {
+                initialPos = max(initialPos, um[s[i]]);
+            }
+            ans = max(ans, i - initialPos + 1);
+            um[s[i]] = i + 1;
+        }
+        return ans;
+    }
+};
