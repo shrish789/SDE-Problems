@@ -72,3 +72,43 @@ Node *flatten(Node *root)
         // it will be in turn merged with its left 
         return root; 
 }
+
+
+// My solution using Loops
+Node *flatten(Node *root)
+{
+   // Your code here
+   Node *curr = root, *temp;
+   while (curr) {
+       if (curr -> bottom && curr -> next) {
+           if (curr -> bottom -> data <= curr -> next -> data) {
+               temp = curr -> next;
+               curr -> next = curr -> bottom;
+               curr -> bottom = NULL;
+               curr -> next -> next = temp;
+           } else {
+               // Rocket science
+               Node * temp1 = curr -> next, *temp2 = NULL;
+               while (temp1 && temp1 -> data < curr -> bottom -> data) {
+                   temp2 = temp1;
+                   temp1 = temp1 -> next;
+               }
+               temp2 -> next = curr -> bottom;
+               curr -> bottom -> next = temp1;
+               curr -> bottom = NULL;
+           }
+       } else if (curr -> bottom && !curr -> next) {
+           curr -> next = curr -> bottom;
+           curr -> bottom = NULL;
+       }
+       curr = curr -> next;
+   }
+   curr = root;
+   while (curr) {
+       curr -> bottom = curr -> next;
+       curr -> next = NULL;
+       curr = curr -> bottom;
+   }
+   return root;
+}
+
