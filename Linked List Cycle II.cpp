@@ -39,17 +39,17 @@ Can you solve it without using extra space?
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
-        ListNode *slow=head, *fast=head;
-        while(fast!=NULL && fast->next!=NULL){
-            slow=slow->next;
-            fast=fast->next->next;
-            if(slow==fast){
-                fast=head;
-                while(slow!=fast){
-                    slow=slow->next;
-                    fast=fast->next;
+        ListNode *slow = head, *fast = head;
+        while (fast && fast -> next) {
+            slow = slow -> next;
+            fast = fast -> next -> next;
+            if (slow == fast) {
+                fast = head;
+                while (slow != fast) {
+                    slow = slow -> next;
+                    fast = fast -> next;
                 }
-                return slow;
+                return fast;
             }
         }
         return NULL;
