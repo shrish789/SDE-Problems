@@ -26,33 +26,57 @@ Your code should preferably run in O(n) time and use only O(1) memory.
 */
 
 class Solution {
+private:
+    int findLength(ListNode *head) {
+        int len = 0;
+        ListNode *temp = head;
+        while (temp) {
+            temp = temp -> next;
+            len++;
+        }
+        return len;
+    }
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        int len1=0,len2=0;
-        ListNode* temp=headA;
-        while(temp!=NULL){
-            temp=temp->next;
-            len1++;
+        int len1 = findLength(headA), len2 = findLength(headB);
+        if (len1 < len2) {
+            return getIntersectionNode(headB, headA);
         }
-        temp=headB;
-        while(temp!=NULL){
-            temp=temp->next;
-            len2++;
+        int diff = len1 - len2;
+        ListNode *temp1 = headA, *temp2 = headB;
+        while (diff != 0) {
+            temp1 = temp1 -> next;
+            diff--;
         }
-        if(len1<len2) return getNode(headA, headB, len1, len2);
-        else return getNode(headB, headA, len2, len1);
+
+        while (temp1 && temp2) {
+            if (temp1 == temp2) {
+                return temp1;
+            }
+            temp1 = temp1 -> next;
+            temp2 = temp2 -> next;
+        }
+
+        return NULL;
     }
-    
-    ListNode *getNode(ListNode* headA, ListNode* headB, int len1, int len2){
-        ListNode *temp1=headA,*temp2=headB;
-        while(len2!=len1){
-            temp2=temp2->next;
-            len2--;
+};
+
+// Using extra space
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        unordered_set <ListNode*> us;
+        ListNode *temp = headA;
+        while(temp) {
+            us.insert(temp);
+            temp = temp -> next;
         }
-        while(temp1!=NULL && temp2!=NULL){
-            if(temp1==temp2) return temp1;
-            temp1=temp1->next;
-            temp2=temp2->next;
+        temp = headB;
+        while(temp) {
+            if (us.find(temp) != us.end()) {
+                return temp;
+            }
+            temp = temp -> next;
         }
         return NULL;
     }
