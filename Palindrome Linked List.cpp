@@ -58,3 +58,42 @@ public:
 
 
 // THIRD APPROACH: Fast-slow pointer and rest approach same as above
+class Solution {
+private:
+    ListNode *reverseList(ListNode *head) {
+        ListNode *curr = head, *prev = NULL, *temp;
+        while (curr) {
+            temp = curr -> next;
+            curr -> next = prev;
+            prev = curr;
+            curr = temp;
+        }
+        return prev;
+    }
+public:
+    bool isPalindrome(ListNode* head) {
+        ListNode *slow = head, *fast = head, *prev;
+        while (fast && fast -> next) {
+            prev = slow;
+            slow = slow -> next;
+            fast = fast -> next -> next;
+        }
+        if (fast) {
+            prev = slow;
+            slow = slow -> next;
+        }
+        ListNode *head2 = prev -> next;
+        prev -> next = NULL;
+        head2 = reverseList(head2);
+        slow = head;
+        fast = head2;
+        while (slow && fast) {
+            if (slow -> val != fast -> val) {
+                return false;
+            }
+            slow = slow -> next;
+            fast = fast -> next;
+        }
+        return true;
+    }
+};
