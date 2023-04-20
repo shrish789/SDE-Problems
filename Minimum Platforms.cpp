@@ -52,3 +52,22 @@ int countPlatforms(int n,int arr[],int dep[])
     }
     return ans;
  }
+
+// This also uses constant space
+class Solution{
+    public:
+    int findPlatform(int arr[], int dep[], int n)
+    {
+    	vector <int> v(2400, 0);
+    	for (int i = 0; i < n; i++) {
+    	    v[arr[i]] += 1;
+    	    v[dep[i] + 1] -= 1;
+    	}
+    	int ans = v[0];
+    	for (int i = 1; i < 2400; i++) {
+    	    v[i] += v[i - 1];
+    	    ans = max(v[i], ans);
+    	}
+    	return ans;
+    }
+};
