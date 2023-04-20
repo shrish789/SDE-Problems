@@ -32,27 +32,31 @@ public:
     }
 };
 
+
 // SECOND APPROACH: Without using sets
 class Solution {
-public:
-    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        vector<vector<int>> v;
-        vector<int> v1;
-        sort(candidates.begin(), candidates.end());
-        backtrack(v, v1, candidates, 0, 0, target);
-        return v;
-    }
-    void backtrack(vector<vector<int>> &v, vector<int> v1, vector<int> nums, int pos, int sum, int target) {
-        if (sum == target) v.push_back(v1);
-        for (int i = pos; i < nums.size(); i++) {
-            if (i != pos && nums[i] == nums[i - 1]) continue;
-            if (sum + nums[i] <= target) {
-                v1.push_back(nums[i]);
-                sum += v1.back();
-                backtrack(v, v1, nums, i + 1, sum, target);
-                sum -= v1.back();
-                v1.pop_back();
+private:
+    void combinationSumUtil(vector<int>& candidates, int target, int pos, vector <int> v, vector <vector <int>> &res) {
+        if (target == 0) {
+            res.push_back(v);
+            return;
+        }
+
+        for (int i = pos; i < candidates.size(); i++) {
+            if (target >= candidates[i]) {
+                if (i != pos && candidates[i] == candidates[i - 1]) continue;
+                v.push_back(candidates[i]);
+                combinationSumUtil(candidates, target - candidates[i], i + 1, v, res);
+                v.pop_back();
             }
         }
+    }
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        vector <vector <int>> res;
+        vector <int> v;
+        sort(candidates.begin(), candidates.end());
+        combinationSumUtil(candidates, target, 0, v, res);
+        return res;
     }
 };
