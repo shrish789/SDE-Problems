@@ -27,21 +27,23 @@ public:
 
 // SECOND APPROACH: Without using set
 class Solution {
+private:
+    void subsetUtil(vector <int> &nums, int pos, vector <int> v, vector <vector <int>> &res) {
+        res.push_back(v);
+
+        for (int i = pos; i < nums.size(); i++) {
+            if (i > pos && nums[i] == nums[i - 1]) continue;
+            v.push_back(nums[i]);
+            subsetUtil(nums, i + 1, v, res);
+            v.pop_back();
+        }
+    }
 public:
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        vector<vector<int>> v;
-        vector<int> v1;
+        vector <vector <int>> res;
+        vector <int> v;
         sort(nums.begin(), nums.end());
-        backtrack(v, v1, nums, 0);
-        return v;
-    }
-    void backtrack(vector<vector<int>> &v, vector<int> v1, vector<int> nums, int pos) {
-        v.push_back(v1);
-        for (int i = pos; i < nums.size(); i++) {
-            if (i != pos && nums[i] == nums[i - 1]) continue;
-            v1.push_back(nums[i]);
-            backtrack(v, v1, nums, i + 1);
-            v1.pop_back();
-        }
+        subsetUtil(nums, 0, v, res);
+        return res;
     }
 };
