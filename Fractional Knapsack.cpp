@@ -1,3 +1,11 @@
+//class implemented
+/*
+struct Item{
+    int value;
+    int weight;
+};
+*/
+
 class Solution
 {
 private:
