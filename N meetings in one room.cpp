@@ -71,3 +71,25 @@ int main() {
 	}
 	return 0;
 }
+
+// If we have to find only the number of meetings
+class Solution
+{
+    public:
+    int maxMeetings(int start[], int end[], int n)
+    {
+        vector <pair<int, int>> v(n);
+        int ans = 0, curr = -1;
+        for (int i = 0 ; i < n; i++) {
+            v[i] = make_pair(end[i], start[i]);
+        }
+        sort(v.begin(), v.end());
+        for (int i = 0; i < n; i++) {
+            if (curr < v[i].second) {
+                curr = v[i].first;
+                ans++;
+            }
+        }
+        return ans;
+    }
+};
