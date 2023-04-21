@@ -36,44 +36,30 @@ class Solution {
 // SECOND APPROACH: Find answer directly
 class Solution {
 public:
-    int factorial(int n){
-        // cout<<"IH";
-        int ans=1;
-        for(int i=1; i<=n; i++) ans*=i;
-        return ans;
-    }
     string getPermutation(int n, int k) {
-        string ans="";
-        int n1=n;
-        vector<int> a(n+1,0);
-        while(n!=0)
-        {
-            int p = factorial(n-1);
-            int l = k/p;
-            if(k%p==0)
-            {
-                int k1=0;
-                for(int i=1; i<=n1; i++)
-                {
-                    if(a[i]==0 && k1++==l-1)
-                        ans+=to_string(i),a[i]=1;
-                }
-                for(int i=n1; i>=1; i--)
-                    if(!a[i]) ans+=to_string(i);
-                break;
-            }
-            else
-            {
-                int k1=0;
-                for(int i=1; i<=n1; i++)
-                {
-                    if(a[i]==0 && k1++==l)
-                        ans+=to_string(i),a[i]=1;
-                }
-            }
-            n--;
-            k-=p*l;
+        int fact = 1;
+        vector<int> nums;
+        
+        for(int i=1; i<n; i++) {
+            fact *= i;
+            nums.push_back(i);
         }
-        return ans;
+        nums.push_back(n);
+        
+        k -= 1; // as we are using 0-based indexing
+        
+        string res = "";
+        
+        while(true) {
+            res += to_string(nums[k/fact]);
+            nums.erase(nums.begin() + k/fact);
+            
+            if(nums.size() == 0) break; // no more elements left
+            
+            k %= fact;
+            fact /= nums.size();
+        }
+        
+        return res;
     }
 };
