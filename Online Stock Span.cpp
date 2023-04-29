@@ -1,19 +1,20 @@
 // https://leetcode.com/problems/online-stock-span/
 
 class StockSpanner {
+private:
+    stack <pair <int, int>> st;
 public:
-    stack<pair<int, int>> st;
     StockSpanner() {
         
     }
     
     int next(int price) {
-        int cnt = 1;
+        int span = 1;
         while (!st.empty() && st.top().first <= price) {
-            cnt += st.top().second;
+            span += st.top().second;
             st.pop();
         }
-        st.push({price, cnt});
-        return cnt;
+        st.push(make_pair(price, span));
+        return span;
     }
 };
