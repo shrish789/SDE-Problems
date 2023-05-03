@@ -6,7 +6,6 @@ class Solution {
 public:
     int widthOfBinaryTree(TreeNode* root) {
         if(!root) return 0;
-		// Node and index of the node 
         queue<pair<TreeNode*, int>> q;
         q.push({root, 0});
         long long int ans = 0;
